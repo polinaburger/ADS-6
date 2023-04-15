@@ -22,8 +22,9 @@ class TPQueue {
         res -= size + 1;
       return res;
       }
+      
  public:
-  TPQueue():
+ TPQueue():
    begin(0), end(0), count(0) {
     arr = new T[size + 1];
     }
@@ -47,18 +48,18 @@ void push(const T& value) {
   arr[flag % size] = value;
   count++;
   end++;
-  }
  }
+}
 T pop() {
- assert(count > 0);
- T item = arr[begin];
- count--;
- begin = stepForward(begin);
- return item;
+assert(count > 0);
+T item = arr[begin];
+count--;
+begin = stepForward(begin);
+return item;
 }
 T get() const {
- assert(count > 0);
- return arr[begin];
+assert(count > 0);
+return arr[begin];
 }
 bool isEmpty() const {
 return count == 0;
