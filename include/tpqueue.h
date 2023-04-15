@@ -22,15 +22,15 @@ class TPQueue {
         res -= size + 1;
       return res;
       }
-      
+
  public:
- TPQueue():
-   begin(0), end(0), count(0) {
-    arr = new T[size + 1];
-    }
-  ~TPQueue() {
-  delete[] arr;
-  }
+TPQueue():
+begin(0), end(0), count(0) {
+arr = new T[size + 1];
+}
+~TPQueue() {
+delete[] arr;
+}
 void push(const T& value) {
   if (isFull()) {
   throw std::string("is Full!");
@@ -48,7 +48,7 @@ void push(const T& value) {
   arr[flag % size] = value;
   count++;
   end++;
- }
+}
 }
 T pop() {
 assert(count > 0);
@@ -63,13 +63,13 @@ return arr[begin];
 }
 bool isEmpty() const {
 return count == 0;
- }
+}
 bool isFull() const {
 return count == size;
- }
+}
 };
 struct SYM {
- char ch;
- int prior;
+char ch;
+int prior;
 };
 #endif  // INCLUDE_TPQUEUE_H_
