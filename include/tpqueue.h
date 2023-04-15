@@ -3,7 +3,7 @@
 #define INCLUDE_TPQUEUE_H_
 #include <cassert>
 
-template<typename T, int size>
+template<typename T>
 class TPQueue {
  private:
   T *arr;
@@ -11,7 +11,7 @@ class TPQueue {
   int begin, end;
   int count;
   int stepBack(int index) {
-      int res == --index;
+      int res = --index;
       if (res < 0)
         res += size+1;
       return res;
@@ -25,20 +25,20 @@ class TPQueue {
 
  public:
   TPQueue(): 
-      size(100);
-      begin(0), end(0), count(0) {
-        arr = new T[size + 1];
-        }
-       TPQueue(){
-           delete[] arr;
-           }
+  size(100),
+  begin(0), end(0), count(0) {
+   arr = new T[size + 1];
+  }
+   ~TPQueue() {
+   delete[] arr;
+  }
 
   void push(const T& item) {
       assert(count < size);
       int cur = end;
-      while (begin != cur && item.prior > items[i].prior) {
+      while (begin != cur && item.prior > arr[(cur - 1 + size) % size].prior) {
         arr[cur] = arr[stepBack(cur)];
-        cur = stepBack(cur)
+        cur = stepBack(cur);
       }
       arr [cur] = item;
       end = stepForward(end);
