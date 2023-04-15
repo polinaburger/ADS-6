@@ -17,38 +17,46 @@ class TPQueue {
       return res;
   }
   int stepForward(int index) {
-      int res=++index;
+      int res = ++index;
       if (res > size)
         res -= size + 1;
       return res;
   }
 
  public:
-  TPQueue(): 
-  size(100),
-  begin(0), end(0), count(0) {
+  TPQueue():
+  size(100), begin(0), end(0), count(0) {
    arr = new T[size + 1];
   }
-   ~TPQueue() {
+  ~TPQueue() {
    delete[] arr;
   }
 
-  void push(const T& item) {
-      assert(count < size);
-      int cur = end;
-      while (begin != cur && item.prior > arr[(cur - 1 + size) % size].prior) {
-        arr[cur] = arr[stepBack(cur)];
-        cur = stepBack(cur);
-      }
-      arr [cur] = item;
-      end = stepForward(end);
-      count++;    
+ void push(const T& value) {
+  if (isFull()) {
+   throw std::string("is Full!");
+  } else {
+   int flag = end; 
+   for (int i = begin; i < last; i++) {
+    if (value.prior > arr[i].prior) {
+     flag = i;
+     break;
+    }
+   }
+   for (int i = end; i > flag; i--) {
+    arr[i % size] = arr[(i - 1) % size];
+   }
+   arr[flag % size] = value;
+   count++;
+   end++;
   }
+ }
+ 
   T pop() {
-      assert (count > 0);
+      assert(count > 0);
       T item = arr[begin];
       count--;
-      begin=stepForward(begin);
+      begin = stepForward(begin);
       return item;
   }
 
