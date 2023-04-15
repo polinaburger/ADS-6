@@ -2,12 +2,12 @@
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
 #include <cassert>
+#include <string>
 
-template<typename T>
+template <typename T, int size>
 class TPQueue {
  private:
   T *arr;
-  int size;
   int begin, end;
   int count;
   int stepBack(int index) {
@@ -22,22 +22,20 @@ class TPQueue {
         res -= size + 1;
       return res;
   }
-
- public:
-  TPQueue():
-  size(100), begin(0), end(0), count(0) {
-   arr = new T[size + 1];
-  }
-  ~TPQueue() {
-   delete[] arr;
-  }
-
- void push(const T& value) {
+public:
+ TPQueue():
+ size(100), begin(0), end(0), count(0) {
+  arr = new T[size + 1];
+ }
+ ~TPQueue(){
+  delete[] arr;
+ }
+void push(const T& value) {
   if (isFull()) {
    throw std::string("is Full!");
   } else {
    int flag = end; 
-   for (int i = begin; i < last; i++) {
+   for (int i = begin; i < end; i++) {
     if (value.prior > arr[i].prior) {
      flag = i;
      break;
@@ -52,30 +50,26 @@ class TPQueue {
   }
  }
  
-  T pop() {
-      assert(count > 0);
-      T item = arr[begin];
-      count--;
-      begin = stepForward(begin);
-      return item;
-  }
-
-  T get() const {
-      assert(count > 0);
-      return arr[begin];
-  }
-
-  bool isEmpty() const {
-    return count == 0;
-  }
-
-  bool isFull() const {
-    return count == size;
-  }
+T pop() {
+ assert(count > 0);
+ T item = arr[begin];
+ count--;
+ begin = stepForward(begin);
+ return item;
+}
+T get() const {
+ assert(count > 0);
+ return arr[begin];
+}
+ bool isEmpty() const {
+  return count == 0;
+ }
+ bool isFull() const {
+  return count == size;
+ }
 };
 struct SYM {
     char ch;
     int prior;
 };
-
 #endif  // INCLUDE_TPQUEUE_H_
